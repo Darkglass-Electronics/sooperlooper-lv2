@@ -1,7 +1,7 @@
 
 # This is how many seconds of loop memory you want your
 # plugin to have available.
-SAMPLE_MEMORY = 200
+SAMPLE_MEMORY = 400
 
 # plugin name
 PLUGIN = $(shell basename $(shell pwd) | tr A-Z a-z)
