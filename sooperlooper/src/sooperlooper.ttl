@@ -2,15 +2,15 @@
 @prefix doap:   <http://usefulinc.com/ns/doap#>.
 @prefix foaf:   <http://xmlns.com/foaf/0.1/>.
 @prefix lv2:    <http://lv2plug.in/ns/lv2core#>.
-@prefix mod:    <http://moddevices.com/ns/mod#>.
 @prefix pprops: <http://lv2plug.in/ns/ext/port-props#>.
 @prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix units:  <http://lv2plug.in/ns/extensions/units#> .
 @prefix worker: <http://lv2plug.in/ns/ext/worker#>.
 
-<http://moddevices.com/plugins/sooperlooper-2x2>
+<urn:darkglass:sooperlooper>
 a lv2:Plugin, lv2:UtilityPlugin;
 
-doap:name "SooperLooper 2x2";
+doap:name "SooperLooper";
 doap:license <http://usefulinc.com/doap/licenses/gpl>;
 
 doap:developer [
@@ -20,50 +20,40 @@ doap:developer [
 ];
 
 doap:maintainer [
-    foaf:name "MOD Team";
-    foaf:homepage <http://moddevices.com>;
-    foaf:mbox <mailto:devel@moddevices.com>;
+    foaf:name "Darkglass" ;
+    foaf:homepage <https://www.darkglass.com/> ;
+    foaf:mbox <mailto:contact@darkglass.com> ;
 ];
-
-mod:brand "MOD";
-mod:label "SooperLooper 2x2";
 
 lv2:extensionData worker:interface;
 lv2:requiredFeature worker:schedule;
 
-lv2:minorVersion 0;
-lv2:microVersion 9;
-rdfs:comment """
-Stereo version of SooperLooper plugin
-""";
+lv2:minorVersion 1;
+lv2:microVersion 0;
 
 lv2:port [
   a lv2:AudioPort, lv2:InputPort;
   lv2:index 0;
-  lv2:symbol "input0";
-  lv2:name "Input0";
-  lv2:shortName "Input0";
+  lv2:symbol "input_l";
+  lv2:name "Input L";
 ],
 [
   a lv2:AudioPort, lv2:InputPort;
   lv2:index 1;
-  lv2:symbol "input1";
-  lv2:name "Input1";
-  lv2:shortName "Input1";
+  lv2:symbol "input_r";
+  lv2:name "Input R";
 ],
 [
   a lv2:AudioPort, lv2:OutputPort;
   lv2:index 2;
-  lv2:symbol "output0";
-  lv2:name "Output0";
-  lv2:shortName "Output0";
+  lv2:symbol "output_l";
+  lv2:name "Output L";
 ],
 [
   a lv2:AudioPort, lv2:OutputPort;
   lv2:index 3;
-  lv2:symbol "output1";
-  lv2:name "Output1";
-  lv2:shortName "Output1";
+  lv2:symbol "output_r";
+  lv2:name "Output R";
 ],
 [
   a atom:AtomPort, lv2:OutputPort;
@@ -75,8 +65,8 @@ lv2:port [
 [
   a lv2:ControlPort, lv2:InputPort;
   lv2:index 5;
-  lv2:symbol "play_pause";
-  lv2:name "Play/Pause";
+  lv2:symbol "play_stop";
+  lv2:name "Play/Stop";
   lv2:default 0;
   lv2:minimum 0;
   lv2:maximum 1;
@@ -85,8 +75,8 @@ lv2:port [
 [
   a lv2:ControlPort, lv2:InputPort;
   lv2:index 6;
-  lv2:symbol "record";
-  lv2:name "Record";
+  lv2:symbol "rec_dub";
+  lv2:name "Record/Overdub";
   lv2:default 0;
   lv2:minimum 0;
   lv2:maximum 1;
@@ -95,8 +85,8 @@ lv2:port [
 [
   a lv2:ControlPort, lv2:InputPort;
   lv2:index 7;
-  lv2:symbol "reset";
-  lv2:name "Reset";
+  lv2:symbol "erase_all";
+  lv2:name "Erase All";
   lv2:default 0;
   lv2:minimum 0;
   lv2:maximum 1;
@@ -125,24 +115,16 @@ lv2:port [
 [
   a lv2:ControlPort, lv2:InputPort;
   lv2:index 10;
-  lv2:symbol "dryLevel";
-  lv2:name "Dry Level";
-  lv2:default 1.0;
-  lv2:minimum 0.0;
-  lv2:maximum 1.0;
+  lv2:symbol "wetLevel";
+  lv2:name "Wet Level";
+  lv2:default 0.0;
+  lv2:minimum -30.0;
+  lv2:maximum 0.0;
+  units:unit units:db;
 ],
 [
   a lv2:ControlPort, lv2:InputPort;
   lv2:index 11;
-  lv2:symbol "wetLevel";
-  lv2:name "Wet Level";
-  lv2:default 1.0;
-  lv2:minimum 0.0;
-  lv2:maximum 1.0;
-],
-[
-  a lv2:ControlPort, lv2:InputPort;
-  lv2:index 12;
   lv2:symbol "waveform";
   lv2:name "Enable Waveform";
   lv2:default 0;
@@ -152,7 +134,7 @@ lv2:port [
 ],
 [
   a lv2:ControlPort, lv2:OutputPort;
-  lv2:index 13;
+  lv2:index 12;
   lv2:symbol "outStatus";
   lv2:name "Status";
   lv2:default 0;
@@ -162,8 +144,8 @@ lv2:port [
 ],
 [
   a lv2:ControlPort, lv2:OutputPort;
-  lv2:index 14;
-  lv2:symbol "outLoopPos";
+  lv2:index 13;
+  lv2:symbol "position";
   lv2:name "Loop Position";
   lv2:shortName "Loop Pos";
   lv2:default 0.0;
@@ -172,8 +154,8 @@ lv2:port [
 ],
 [
   a lv2:ControlPort, lv2:OutputPort;
-  lv2:index 15;
-  lv2:symbol "outLoopLen";
+  lv2:index 14;
+  lv2:symbol "length";
   lv2:name "Loop Length";
   lv2:shortName "Loop Len";
   lv2:default 0.0;
